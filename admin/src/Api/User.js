@@ -1,4 +1,4 @@
-import axios from '../Utils/axios.js'
+import axios from '../Utils/axios'
 // import {getItem} from '../Utils/webStorages.js'
 // 登录
 export const UserLogin=(userName,passWord)=>{
