@@ -16,10 +16,11 @@ class Add extends React.Component {
     }
   }
   submit(){
+    let token=JSON.parse(localStorage.getItem('token')) 
     
-   let  url='http://39.99.236.159:6666/v1/admin/grade/addGrades'
+   let  url='http://39.99.236.159:3003/v1/admin/grade/addGrades'
     axios.post(url, {
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzgzMDMyODksImV4cCI6MTU3ODMwNjg4OX0.XmDdYKGthtsB0kBbRrin1OD6RywNVGM6YAyWZBqtMLI", 
+      token:token, 
       name:this.state.name,
       sex:this.state.sex,
       hobby:this.state.hobby,
