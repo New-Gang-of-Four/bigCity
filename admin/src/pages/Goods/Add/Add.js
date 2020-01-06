@@ -5,12 +5,12 @@ class Add extends React.Component {
   constructor(){
     super()
     this.state={
-      name:'李阳',
-      sex:'男',
-      hobby:'篮球',
-      adress:'陕西省',
-      grade:87,
-      gradeType:'良好',
+      name:'',
+      sex:'',
+      hobby:'',
+      adress:'',
+      grade:'',
+      gradeType:'',
 
 
     }
@@ -24,7 +24,7 @@ class Add extends React.Component {
       name:this.state.name,
       sex:this.state.sex,
       hobby:this.state.hobby,
-      adress:this.state.address,
+      adress:this.state.adress,
       grade:this.state.grade,
       gradeType:this.state.gradeType,
     })
@@ -55,12 +55,25 @@ class Add extends React.Component {
        <div>成绩：<input type="text" value={grade} onChange={(e)=>{
        this.setState({grade:e.target.value})
      }} /></div>
-       <div>级别：<input type="text" value={gradeType} onChange={(e)=>{
+     <div>
+       {/* <div>级别：<select type="text" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
-     }} /></div>
+     }} /> */}
+     级别：<select name="22" value={gradeType} onChange={(e)=>{
+       this.setState({gradeType:e.target.value})
+     }}>
+     <option value='优秀'>优秀</option>
+     <option value="良好">良好</option>
+     <option value="及格">及格</option>
+     <option value="不及格">不及格</option>
+     </select>
+     </div>
      <button onClick={()=>{
        this.submit()
      }}>添加信息</button>
+      <button onClick={()=>{
+       this.props.history.push('/admin/goods/list')
+     }}>返回列表</button>
     </div>
   );
 }
