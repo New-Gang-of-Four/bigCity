@@ -7,7 +7,7 @@ class SliderNav extends Component {
         return(
             <Menu   mode="vertical" theme='dark'>
                  <Menu.Item key="1">
-                     <Link to='/admin/home'>
+                     <Link to='/admin/chars/bin'>
                      <span>
                          <Icon  type="ci-circle" theme="filled" />
                      首页
@@ -21,14 +21,10 @@ class SliderNav extends Component {
                     <Menu.Item><Link to='/admin/goods/update'>信息修改 </Link></Menu.Item>
                     <Menu.Item><Link to='/admin/goods/list'>信息查询 </Link></Menu.Item>
                  </SubMenu>
-                     <Menu.Item key="2">
-                         <Link to='/admin/students'>
-                     <span>
-                         <Icon  type="car" theme="filled" />
-                     图表汇总
-                     </span>
-                     </Link>
-                     </Menu.Item>
+                 <SubMenu title='图表展示'>
+                    <Menu.Item><Link to='/admin/chars/bin'>饼图展示 </Link></Menu.Item>
+                    <Menu.Item><Link to='/admin/chars/zhu'>柱图展示 </Link></Menu.Item>
+                 </SubMenu>
                      <Menu.Item key="3">
                          <Link to='/login'>
                      <span>
