@@ -87,7 +87,13 @@ module.exports = function(proxy, allowedHost) {
       disableDotRule: true,
     },
     public: allowedHost,
-    proxy,
+    proxy:{
+      '/hehe':{
+        target:'http://39.99.236.159:6666',
+        changeOrigin:true,
+        pathRewrite:{"^/hehe":''}
+      }
+    },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {
         // This registers user provided middleware for proxy reasons
