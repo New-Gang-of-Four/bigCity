@@ -16,10 +16,10 @@ class SliderNav extends Component {
                      </Menu.Item>
                      
                  <SubMenu title='学生管理'>
-                    <Menu.Item>信息添加</Menu.Item>
-                    <Menu.Item>信息删除</Menu.Item>
-                    <Menu.Item>信息修改</Menu.Item>
-                    <Menu.Item>信息查询</Menu.Item>
+                    <Menu.Item><Link to='/admin/goods/add'>信息添加 </Link></Menu.Item>
+                    <Menu.Item><Link to='/admin/goods/del'>信息删除 </Link></Menu.Item>
+                    <Menu.Item><Link to='/admin/goods/update'>信息修改 </Link></Menu.Item>
+                    <Menu.Item><Link to='/admin/goods/list'>信息查询 </Link></Menu.Item>
                  </SubMenu>
                      <Menu.Item key="2">
                          <Link to='/admin/students'>
