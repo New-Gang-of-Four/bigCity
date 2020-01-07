@@ -49,7 +49,8 @@ router.post('/getGradesByKw',(req,res)=>{
 
 // 删除
 router.post('/delGrades',(req,res)=>{
-    let {gradeId} = req.body
+    console.log(req.body)
+    let gradeId = req.body._id
     Grade.del(gradeId)
     .then((data)=>{
         res.send({err:0,msg:'删除成功'})

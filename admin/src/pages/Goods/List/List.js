@@ -144,6 +144,7 @@ class List extends Component{
   }
   delData(id,token){
     let {nowPage,pageSize} = this.state
+    console.log(id)
     delGradesDate(id,token)
     .then((data)=>{
       message.success('删除成功',1)
