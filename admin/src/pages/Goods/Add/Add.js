@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import {message} from 'antd';
 import {getItem} from '../../../Utils/webStorages'
+import styles from './add.module.less'
 class Add extends React.Component {
   constructor(){
     super()
@@ -49,26 +50,28 @@ class Add extends React.Component {
     let{name,sex,hobby,adress,grade,gradeType}=this.state
   return (
     <div>
-    <div> 名字：<input type="text" value={name} onChange={(e)=>{
+      <div>
+     名字：<input className={styles.input} type="text" value={name} onChange={(e)=>{
        this.setState({name:e.target.value})
-     }} /></div>
-       <div>性别：<input type="text" value={sex} onChange={(e)=>{
+     }} />
+       性别：<input className={styles.input} type="text" value={sex} onChange={(e)=>{
        this.setState({sex:e.target.value})
-     }} /></div>
-       <div>爱好：<input type="text" value={hobby} onChange={(e)=>{
+     }} />
+       爱好：<input className={styles.input} type="text" value={hobby} onChange={(e)=>{
        this.setState({hobby:e.target.value})
-     }} /></div>
-       <div>省份：<input type="text" value={adress} onChange={(e)=>{
+     }} />
+       省份：<input className={styles.input} type="text" value={adress} onChange={(e)=>{
        this.setState({adress:e.target.value})
-     }} /></div>
-       <div>成绩：<input type="text" value={grade} onChange={(e)=>{
+     }} />
+       成绩：<input className={styles.input} type="text" value={grade} onChange={(e)=>{
        this.setState({grade:e.target.value})
-     }} /></div>
-     <div>
+     }} />
+     
+    
        {/* <div>级别：<select type="text" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
      }} /> */}
-     级别：<select name="22" value={gradeType} onChange={(e)=>{
+     级别：<select className={styles.input} name="22" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
      }}>
      <option value='优秀' selected>优秀</option>
@@ -77,13 +80,15 @@ class Add extends React.Component {
      <option value="不及格">不及格</option>
      </select>
      </div>
-     <button onClick={()=>{
+     <button className={styles.button} onClick={()=>{
        this.submit()
      }}>添加信息</button>
       <button onClick={()=>{
        this.props.history.push('/admin/goods/list')
      }}>返回列表</button>
+    
     </div>
+
   );
 }
 }

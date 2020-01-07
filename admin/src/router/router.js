@@ -7,7 +7,7 @@ import Admin from '../pages/Admin/Admin'
 import Home from '../pages/Home/Home'
 import GoodsList from '../pages/Goods/List/List'
 import GoodsAdd from '../pages/Goods/Add/Add'
-import GoodsDel from '../pages/Goods/Del/Del'
+
 import GoodsUpdate from '../pages/Goods/Update/Update'
 import CharsBin from '../Chars/bin'
 import CharsZhu from '../Chars/zhu'
@@ -27,7 +27,6 @@ class AppRouter extends Component{
                              <Route path='/admin/chars/bin' component={CharsBin}></Route>
                              <Route path='/admin/goods/list' component={GoodsList}></Route>
                             <Route path='/admin/goods/add' component={GoodsAdd}></Route>
-                            <Route path='/admin/goods/del' component={GoodsDel}></Route>
                             <Route path='/admin/goods/update' component={GoodsUpdate}></Route>
                             <Route path='/admin/chars/bin' component={CharsBin}></Route>
                             <Route path='/admin/chars/zhu' component={CharsZhu}></Route>

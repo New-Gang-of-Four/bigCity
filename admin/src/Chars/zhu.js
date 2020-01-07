@@ -48,6 +48,7 @@ class Chart extends React.Component {
                       }
                   }
                 }
+
             }
         ]
     }
@@ -116,6 +117,7 @@ class Chart extends React.Component {
        console.log(error);
      });  
   
+
   }
   render(){
     let {option}=this.state
