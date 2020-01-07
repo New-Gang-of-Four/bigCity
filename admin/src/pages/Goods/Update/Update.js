@@ -1,10 +1,15 @@
-import React, {Fragment, Component } from 'react';
-import {Drawer,Table,Popconfirm,Button, message} from 'antd'
-
+import React ,{Component,Fragment} from 'react';
+import {getItem} from '../../../Utils/webStorages'
 import {getGradesDate} from '../../../Api/getGrades'
-import {updateGradesDate} from '../../../Api/updateGrades'
-// import GoodsUpdate from ''
-class Update extends Component{
+import {delGradesDate} from '../../../Api/delGrades'
+import {getGradesDateByType} from '../../../Api/getGradesByType'
+import {getGradesDateByKw} from '../../../Api/getGradesByKw'
+import {Drawer,Table,Popconfirm,Button, message,Pagination,Select} from 'antd'
+import GoodsUpdate from './Updates'
+
+const { Option } = Select;
+
+class List extends Component{
   constructor(){
     super()
     this.columns = [
@@ -21,14 +26,14 @@ class Update extends Component{
         dataIndex: 'name',
         key: 'name',
         render: text => <a>{text}</a>,
-        width: 150,
+        width: 120,
         textAlign:'center'
       },
       {
         title: '性别',
         dataIndex: 'sex',
         key: 'sex',
-        width: 150,
+        width: 120,
         textAlign:'center'
       },
       {
@@ -36,7 +41,7 @@ class Update extends Component{
         dataIndex: 'adress',
         key: 'adress',
         ellipsis: true,
-        width: 150,
+        width: 120,
         textAlign:'center'
       },
       {
@@ -44,7 +49,7 @@ class Update extends Component{
         dataIndex: 'hobby',
         key: 'hobby',
         ellipsis: true,
-        width: 150,
+        width: 120,
         textAlign:'center'
       },
       {
@@ -52,7 +57,7 @@ class Update extends Component{
         dataIndex: 'grade',
         key: 'grade',
         ellipsis: true,
-        width: 150,
+        width: 120,
         textAlign:'center'
       },
       {
@@ -60,7 +65,7 @@ class Update extends Component{
         dataIndex: 'gradeType',
         key: 'gradeType',
         ellipsis: true,
-        width: 150,
+        width: 120,
         textAlign:'center'
       },
       {
@@ -73,20 +78,19 @@ class Update extends Component{
           return (
             <Fragment>
               <Popconfirm
-              title="确定修改吗？"
+              title="确定删除吗？"
               onConfirm={()=>{
-                // console.log(this)
-                // console.log(data._id)
-                let token = JSON.parse(localStorage.getItem('token'))
-                 
-                this.updateData(data._id,token)
+                let token = getItem('token')
+                this.delData(data._id,token)
               }}
               okText="确定"
               cancelText="取消"
               >
+              <Button type="danger" size="small" style={{marginRight:'10px'}}>删除</Button>
               </Popconfirm>
               <Button type="primary" size="small" onClick={()=>{
-                this.setState({drawerShow:true})
+                this.setState({drawerShow:true,
+                updataInfo:data})
               }}>修改</Button>
             </Fragment>
           )
@@ -97,71 +101,115 @@ class Update extends Component{
       nowPage:1,
       allCount:0,
       dataSource:[],
-      pageSize:3,
+      pageSize:4,
+      nowPage:1,
       drawerShow:false,
-      updataInfo:{}
-    }
-    // 往后端送的信息格式
-    this.states={
-      name:'',
-      sex:'',
-      hobby:'',
-      adress:'',
-      grade:'',
-      gradeType:'',
+      kw:"请输入需要查询的内容",
+      selectVal:'全部',
+      updataInfo:{updateState:false}
     }
   }
   componentDidMount(){
     let {nowPage,pageSize} = this.state
-    let token = JSON.parse(localStorage.getItem('token'))
-    console.log('获取token',token)
-    this.getData(nowPage,pageSize,token.data)
+    this.token =getItem('token')
+    console.log(this.token)
+    this.getData(nowPage,pageSize,this.token)
   }
-  getData(nowPage=2,pageSize,token){
+  getData(nowPage=1,pageSize,token){
     getGradesDate(nowPage,pageSize,token)
     .then((res)=>{
-      // console.log(res)
-      this.setState({dataSource:res.list.grades})
+      console.log('6666',this)
+      this.setState({dataSource:res.list.grades,allCount:res.list.allCount})
+      this.setState({drawerShow:false}) 
     })
   }
-  updateData(id,token,name,sex,hobby,adress,grade,gradeTYpe){
-    // console.log(token)
+  delData(id,token){
     let {nowPage,pageSize} = this.state
-    // let token = JSON.parse(localStorage.getItem('token'))
-    updateGradesDate(id,token,name,sex,hobby,adress,grade,gradeTYpe)
+    delGradesDate(id,token)
     .then((data)=>{
-      console.log(data)
-      message.success('修改成功',1)
+      message.success('删除成功',1)
       this.getData(nowPage,pageSize,token)
     })
     .catch((err)=>{
       console.log(err)
     })
   }
+  getDataByType(page,pageSize,token,gradeType){
+    getGradesDateByType(page,pageSize,token,gradeType)
+    .then((res)=>{
+      this.setState({dataSource:res.list.grades,allCount:res.list.allCount})
+    })  
+  }
+  getDataByKw(page,pageSize,token,kw){
+    // let token = localStorage.getItem('token')
+    getGradesDateByKw(page,pageSize,token,kw)
+    .then((res)=>{
+      // console.log(res)
+      this.setState({dataSource:res.list.grades,allCount:res.list.allCount})
+    })  
+  }
   render(){
     return (
-      <div>
       <Fragment>
-        <Table columns={this.columns} dataSource={this.state.dataSource}/>
-        {/* <Table columns={columns}/> */}
+        <Select
+          labelInValue
+          defaultValue={{ key: '全部' }}
+          style={{ width: 200 }}
+          onChange={(value)=>{
+            if(value.key==="全部"){
+              console.log(value.key)
+              this.setState({selectVal:value.key})
+              this.getData(this.state.nowPage,this.state.pageSize,this.token)
+            }else{
+              this.setState({selectVal:value.key})
+              this.getDataByType(this.state.nowPage,this.state.pageSize,value.key,this.token)
+            }     
+          }}
+        >
+          <Option value="全部">全部</Option>
+          <Option value="优秀">优秀</Option>
+          <Option value="良好">良好</Option>
+          <Option value="及格">及格</Option>
+          <Option value="不及格">不及格</Option>
+        </Select>
+        <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px'}} value={this.state.kw} onChange={(e)=>{
+          if(e.target.value===''){
+            // console.log(e.target.value)z
+            this.getData(this.state.nowPage,this.state.pageSize,this.token)
+          }
+          this.setState({kw:e.target.value})
+          this.getDataByKw(this.state.nowPage,this.state.pageSize,this.state.kw,this.token)
+        }}/>
+        <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:'40px'}} pagination={false}/>
+        <Pagination total={this.state.allCount} pageSize={this.state.pageSize} size={"big"} style={{margin:'50px',marginLeft:'450px'}} showQuickJumper={true} onChange={(page)=>{
+          let token = getItem('token')
+          
+          if(this.state.selectVal==='全部'){
+            console.log(this.state.selectVal)
+            this.getData(page,this.state.pageSize,token)
+          }else{
+            this.getDataByType(this.state.nowPage,this.state.pageSize,this.state.selectVal,this.token)
+          }
+        }}></Pagination>
+        <Drawer
+          closable={true}
+          onClose={()=>{this.setState({drawerShow:false}) }}
+          visible={this.state.drawerShow}
+        >
+          {/* 将要修改的数据 和刷新方法通过props传递子组件 */}
+          <GoodsUpdate 
+            updateWeb = {this.getData.bind(this)}
+            updataInfo={this.state.updataInfo} 
+            refreshList={()=>{
+              // 收起抽屉
+              this.setState({drawerShow:false}) 
+              // 更新完毕后刷新界面
+              
+            }}></GoodsUpdate>
+        </Drawer>
       </Fragment>
-      <Drawer
-      closable={true}
-      onClose={()=>{this.setState({drawerShow:false}) }}
-      visible={this.state.drawerShow}
-    >
-      {/* 将要修改的数据 和刷新方法通过props传递子组件 */}
-      {/* <GoodsUpdate 
-        updataInfo={this.state.updataInfo} 
-        refreshList={()=>{
-          // 收起抽屉
-          this.setState({drawerShow:false}) 
-          // 更新完毕后刷新界面
-          this.getTableData()
-        }}></GoodsUpdate> */}
-    </Drawer></div>
     )
   }
 }
 
-export default Update;
+export default List;
