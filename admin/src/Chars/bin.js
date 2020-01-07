@@ -47,7 +47,7 @@ class Chart extends React.Component{
      .then((response)=>{
       data.push({value: response.list.allCount, name: '及格'})
       let option = JSON.parse(JSON.stringify(this.state.option ))
-      option.series[0].data=data
+      // option.series[0].data=data
       // this.setState({option})
       
      })
@@ -65,7 +65,7 @@ class Chart extends React.Component{
      data.push({value: response.list.allCount, name: '优秀'})
      console.log(data)
      let option = JSON.parse(JSON.stringify(this.state.option ))
-     option.series[0].data=data
+    //  option.series[0].data=data
      console.log(option.series[0].data)
     //  this.setState({option})
      
@@ -84,7 +84,7 @@ class Chart extends React.Component{
      data.push({value: response.list.allCount, name: '不及格'})
      console.log(data)
      let option = JSON.parse(JSON.stringify(this.state.option ))
-     option.series[0].data=data
+    //  option.series[0].data=data
      console.log(option.series[0].data)
     //  this.setState({option})
      
@@ -105,9 +105,13 @@ class Chart extends React.Component{
      let option = JSON.parse(JSON.stringify(this.state.option ))
      option.series[0].data=data
      console.log(option.series[0].data)
-     this.setState({option})
+    //  setTimeout(() => {
+      this.setState({option})
+    
+    
      
     })
+    
     .catch((error)=>{
       console.log(error);
     });
