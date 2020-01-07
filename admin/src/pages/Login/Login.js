@@ -18,11 +18,13 @@ class Login  extends Component{
      UserLogin(userName,passWord)
      .then((res)=>{
        console.log('then',res)
+
        setItem('token',res.token,1)
        setItem('uid',res.uid,1)
       //  setItem('rootIds',res.rootList)
        message.success('登录成功，1s后跳转首页',1,()=>{
          this.props.history.replace('/admin/home')
+
        })
      })
      .catch((err)=>{
@@ -38,8 +40,9 @@ class Login  extends Component{
     return (
       // 登录页面，样式在外部文件里
       <div className={styles.login}>
+        <h2 className={styles.title}>卡塞尔学院学员成绩库</h2>
         {/* 登录窗口，一个模态框 */}
-        <Card  title='用户登录' className={styles['login-card']}>
+        <Card  title='学员登录' className={styles['login-card']}>
           {/* 用户名输入框  验证规则，1.不得为空；2.字符数在3-9个字符之间 */}
           <Form.Item>   
             {getFieldDecorator('userName',{
