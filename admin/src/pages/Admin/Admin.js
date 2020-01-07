@@ -24,7 +24,7 @@ class Admin extends React.Component{
          </Sider>
          <Layout>
            <Header style={{ background: 'blueviolet', padding: 0 }}>
-               <h2 className={styles.h2}>学生信息后台系统管理平台</h2>
+               <h2 className={styles.h2} style={{marginLeft:'550px'}}>学生信息后台系统管理平台</h2>
  
              <Icon
                className="trigger"

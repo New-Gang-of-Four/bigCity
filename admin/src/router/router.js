@@ -1,4 +1,5 @@
 import React,{Component,Fragment} from 'react'
+import {getItem} from '../Utils/webStorages'
 import {HashRouter,NavLink,Route,Redirect,Switch} from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Admin from '../pages/Admin/Admin'
@@ -15,11 +16,9 @@ class AppRouter extends Component{
         return(
             <HashRouter>
             <NavLink to='/login'></NavLink>
-            
             <Switch>
-            <Redirect exact from ='/' to='/admin/home'></Redirect>
+                {getItem('token')?<Redirect exact from ='/' to='/admin/home'></Redirect>:<Redirect exact from ='/' to='/login'></Redirect>}
                 <Route path='/login' component={Login}></Route>
-                
                 <Route path='/admin'render={()=>{
                     return(
                       <Admin>
@@ -27,11 +26,11 @@ class AppRouter extends Component{
                              <Route path='/admin/home' component={Home}></Route>
                              <Route path='/admin/chars/bin' component={CharsBin}></Route>
                              <Route path='/admin/goods/list' component={GoodsList}></Route>
-                  <Route path='/admin/goods/add' component={GoodsAdd}></Route>
-                  <Route path='/admin/goods/del' component={GoodsDel}></Route>
-                  <Route path='/admin/goods/update' component={GoodsUpdate}></Route>
-                  <Route path='/admin/chars/bin' component={CharsBin}></Route>
-                  <Route path='/admin/chars/zhu' component={CharsZhu}></Route>
+                            <Route path='/admin/goods/add' component={GoodsAdd}></Route>
+                            <Route path='/admin/goods/del' component={GoodsDel}></Route>
+                            <Route path='/admin/goods/update' component={GoodsUpdate}></Route>
+                            <Route path='/admin/chars/bin' component={CharsBin}></Route>
+                            <Route path='/admin/chars/zhu' component={CharsZhu}></Route>
                          </Switch>
                       </Admin>  
                     )

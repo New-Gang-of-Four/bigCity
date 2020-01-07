@@ -108,7 +108,7 @@ class List extends Component{
   componentDidMount(){
     let {nowPage,pageSize} = this.state
     this.token =getItem('token')
-    console.log(this.token)
+    // console.log(this.token)
     this.getData(nowPage,pageSize,this.token)
   }
   getData(nowPage=1,pageSize,token){
@@ -172,17 +172,19 @@ class List extends Component{
             this.getData(this.state.nowPage,this.state.pageSize,this.token)
           }
           this.setState({kw:e.target.value})
-          this.getDataByKw(this.state.nowPage,this.state.pageSize,this.state.kw,this.token)
+          setTimeout(()=>{
+              // console.log(this.state.kw)
+              this.getDataByKw(this.state.nowPage,this.state.pageSize,this.state.kw,this.token)
+          },500)
         }}/>
         <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:'40px'}} pagination={false}/>
         <Pagination total={this.state.allCount} pageSize={this.state.pageSize} size={"big"} style={{margin:'50px',marginLeft:'450px'}} showQuickJumper={true} onChange={(page)=>{
           let token = getItem('token')
-          
           if(this.state.selectVal==='全部'){
             console.log(this.state.selectVal)
             this.getData(page,this.state.pageSize,token)
           }else{
-            this.getDataByType(this.state.nowPage,this.state.pageSize,this.state.selectVal,this.token)
+            this.getDataByType(page,this.state.pageSize,this.state.selectVal,token)
           }
         }}></Pagination>
       </Fragment>
