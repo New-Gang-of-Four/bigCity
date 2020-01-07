@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
-
+import {message} from 'antd';
+import {getItem} from '../../../Utils/webStorages'
 class Add extends React.Component {
   constructor(){
     super()
@@ -10,7 +11,7 @@ class Add extends React.Component {
       hobby:'',
       adress:'',
       grade:'',
-      gradeType:'',
+      gradeType:'优秀',
 
 
     }
@@ -20,7 +21,7 @@ class Add extends React.Component {
     
    let  url='http://39.99.236.159:3003/v1/admin/grade/addGrades'
     axios.post(url, {
-      token:token, 
+      token:token.data, 
       name:this.state.name,
       sex:this.state.sex,
       hobby:this.state.hobby,
@@ -29,10 +30,18 @@ class Add extends React.Component {
       gradeType:this.state.gradeType,
     })
     .then((response)=>{
-      alert('添加成功')
+    
+      message.success('添加成功')
       console.log(response);
     })
     .catch((error)=>{
+      if(!getItem('token')){
+        message.success('请先登录再操作',2,()=>{
+          this.props.history.push('/login')
+        })
+          
+      }
+      message.success('添加失败')
       console.log(error);
     });
   }
@@ -62,7 +71,7 @@ class Add extends React.Component {
      级别：<select name="22" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
      }}>
-     <option value='优秀'>优秀</option>
+     <option value='优秀' selected>优秀</option>
      <option value="良好">良好</option>
      <option value="及格">及格</option>
      <option value="不及格">不及格</option>

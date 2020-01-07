@@ -18,8 +18,8 @@ class Login  extends Component{
      UserLogin(userName,passWord)
      .then((res)=>{
        console.log('then',res)
-       setItem('token',res.token)
-       setItem('uid',res.uid)
+       setItem('token',res.token,1)
+       setItem('uid',res.uid,1)
       //  setItem('rootIds',res.rootList)
        message.success('登录成功，1s后跳转首页',1,()=>{
          this.props.history.replace('/admin/chars/bin')

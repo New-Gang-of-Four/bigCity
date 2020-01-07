@@ -108,7 +108,7 @@ class List extends Component{
   componentDidMount(){
     let {nowPage,pageSize} = this.state
     let token = JSON.parse(localStorage.getItem('token'))
-    this.getData(nowPage,pageSize,token)
+    this.getData(nowPage,pageSize,token.data)
   }
   getData(nowPage=2,pageSize,token){
     getGradesDate(nowPage,pageSize,token)

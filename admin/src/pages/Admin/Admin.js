@@ -2,8 +2,19 @@ import React from 'react';
 import { Layout, Menu, Icon } from 'antd'
 import styles from './admin.module.less'
 import SliderNav from '../../components/SilderNav/silderNav'
+import {withRouter} from 'react-router-dom'
+import {getItem} from '../../Utils/webStorages'
+import {message} from 'antd';
 const { Header, Sider, Content,Footer } = Layout
 class Admin extends React.Component{
+ componentWillReceiveProps(){
+    if(!getItem('token')){
+      message.success('请先登录再操作',2,()=>{
+        this.props.history.push('/login')
+      })
+        
+    }
+}
     render(){
         return (
     
@@ -39,4 +50,4 @@ class Admin extends React.Component{
 }
 
 
-export default Admin;
+export default withRouter(Admin) ;
