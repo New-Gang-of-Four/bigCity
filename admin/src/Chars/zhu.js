@@ -38,7 +38,7 @@ class Chart extends React.Component {
                 name: '直接访问',
                 type: 'bar',
                 barWidth: '60%',
-                data: [10, 52, 200, 334, 390, 330, 220]
+                data: []
             }
         ]
     }
@@ -57,7 +57,7 @@ class Chart extends React.Component {
        gradeType:'及格',
      })
      .then((response)=>{
-      data.push({value: response.list.allCount, name: '及格'})
+      data.push(response.list.allCount)
       let option = JSON.parse(JSON.stringify(this.state.option ))
       option.series[0].data=data
       // this.setState({option})
@@ -74,7 +74,7 @@ class Chart extends React.Component {
     })
     .then((response)=>{
       console.log(response)
-     data.push({value: response.list.allCount, name: '优秀'})
+      data.push(response.list.allCount)
      console.log(data)
      let option = JSON.parse(JSON.stringify(this.state.option ))
      option.series[0].data=data
@@ -93,7 +93,7 @@ class Chart extends React.Component {
     })
     .then((response)=>{
       console.log(response)
-     data.push({value: response.list.allCount, name: '不及格'})
+      data.push(response.list.allCount)
      console.log(data)
      let option = JSON.parse(JSON.stringify(this.state.option ))
      option.series[0].data=data
@@ -112,7 +112,7 @@ class Chart extends React.Component {
     })
     .then((response)=>{
       console.log(response)
-     data.push({value: response.list.allCount, name: '良好'})
+      data.push(response.list.allCount)
      console.log(data)
      let option = JSON.parse(JSON.stringify(this.state.option ))
      option.series[0].data=data

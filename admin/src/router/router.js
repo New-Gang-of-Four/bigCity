@@ -15,14 +15,16 @@ class AppRouter extends Component{
         return(
             <HashRouter>
             <NavLink to='/login'></NavLink>
+            
             <Switch>
-            <Redirect exact from ='/' to='/admin/chars/bin'></Redirect>
+            <Redirect exact from ='/' to='/admin/home'></Redirect>
                 <Route path='/login' component={Login}></Route>
+                
                 <Route path='/admin'render={()=>{
                     return(
                       <Admin>
                          <Switch>
-                            
+                             <Route path='/admin/home' component={Home}></Route>
                              <Route path='/admin/chars/bin' component={CharsBin}></Route>
                              <Route path='/admin/goods/list' component={GoodsList}></Route>
                   <Route path='/admin/goods/add' component={GoodsAdd}></Route>

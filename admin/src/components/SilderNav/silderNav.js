@@ -7,7 +7,7 @@ class SliderNav extends Component {
         return(
             <Menu   mode="vertical" theme='dark'>
                  <Menu.Item key="1">
-                     <Link to='/admin/chars/bin'>
+                     <Link to='/admin/home'>
                      <span>
                          <Icon  type="ci-circle" theme="filled" />
                      首页

@@ -22,7 +22,7 @@ class Login  extends Component{
        setItem('uid',res.uid,1)
       //  setItem('rootIds',res.rootList)
        message.success('登录成功，1s后跳转首页',1,()=>{
-         this.props.history.replace('/admin/chars/bin')
+         this.props.history.replace('/admin/home')
        })
      })
      .catch((err)=>{
