@@ -4,7 +4,7 @@ import {getGradesDate} from '../../../Api/getGrades'
 import {delGradesDate} from '../../../Api/delGrades'
 import {getGradesDateByType} from '../../../Api/getGradesByType'
 import {getGradesDateByKw} from '../../../Api/getGradesByKw'
-import {Table,Popconfirm,Button, message,Pagination,Select} from 'antd'
+import {Table,Popconfirm,Button, message,Pagination,Select,Drawer,Input} from 'antd'
 const { Option } = Select;
 
 class List extends Component{
@@ -89,6 +89,17 @@ class List extends Component{
               <Button type="primary" size="small" onClick={()=>{
                 this.setState({drawerShow:true})
               }}>修改</Button>
+              <Drawer
+                title="Basic Drawer"
+                placement="right"
+                closable={false}
+                onClose={this.onClose}
+                visible={this.state.drawerShow}
+              >
+                <Input placeholder="Basic usage" />
+                <Input placeholder="Basic usage" />
+                <Input placeholder="Basic usage" />
+              </Drawer>
             </Fragment>
           )
         }
@@ -102,7 +113,7 @@ class List extends Component{
       nowPage:1,
       drawerShow:false,
       kw:"请输入需要查询的内容",
-      selectVal:'全部'
+      selectVal:'全部',
     }
   }
   componentDidMount(){
