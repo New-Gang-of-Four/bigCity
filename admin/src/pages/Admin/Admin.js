@@ -4,7 +4,7 @@ import styles from './admin.module.less'
 import SliderNav from '../../components/SilderNav/silderNav'
 import {withRouter} from 'react-router-dom'
 import {getItem,clear} from '../../Utils/webStorages'
-import {message} from 'antd';
+import {message,Popconfirm,Button} from 'antd';
 const { Header, Sider, Content,Footer } = Layout
 class Admin extends React.Component{
   constructor(){
@@ -23,13 +23,15 @@ class Admin extends React.Component{
     }
 }
 changes(){
-  clear()
-  if(!getItem('token')){
-    message.success('已退出登录',2,()=>{
-      this.props.history.push('/login')
-    })
+  
+ 
+  // clear()
+  // if(!getItem('token')){
+  //   message.success('已退出登录',2,()=>{
+  //     this.props.history.push('/login')
+  //   })
       
-  }
+  // }
 }
     render(){
         return (
@@ -40,7 +42,27 @@ changes(){
          </Sider>
          <Layout>
            <Header style={{position:'relative', background: 'blueviolet', padding: 0 }}>
-             <p  style={{ position:'absolute',left:'30px',fontWeight:'bolder',fontSize:'15px',}}>{this.state.name}</p><button onClick={()=>{this.changes()}} style={{border:'none' ,position:'absolute',left:'90px',fontWeight:'bolder',fontSize:'15px',background:'blueviolet',height:'100%'}}><span>登出</span></button>
+             <p  style={{ position:'absolute',left:'30px',fontWeight:'bolder',fontSize:'15px',}}>用户名：{this.state.name}</p>
+             
+             <Popconfirm
+  title="确定删除吗？"
+  onConfirm={()=>{
+   clear()
+  if(!getItem('token')){
+    message.success('已退出登录',2,()=>{
+      this.props.history.push('/login')
+    })
+      
+  }
+  }}
+  okText="确定"
+  cancelText="取消"
+  >
+  {/* <Button type="danger" size="small" style={{marginRight:'10px'}}>删除</Button> */}
+  
+             <button onClick={()=>{this.changes()}} style={{border:'none' ,position:'absolute',left:'150px',fontWeight:'bolder',fontSize:'15px',background:'blueviolet',height:'100%'}}><span>登出</span></button>
+             </Popconfirm>
+
                <h2 className={styles.h2} style={{marginLeft:'550px'}}>学生信息后台系统管理平台</h2>
  
              <Icon
