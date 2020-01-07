@@ -51,34 +51,34 @@ class Add extends React.Component {
   return (
     <div>
       <div>
-     名字：<input className={styles.input} type="text" value={name} onChange={(e)=>{
+      <span className={styles.input}>名字：<input  type="text" value={name} onChange={(e)=>{
        this.setState({name:e.target.value})
-     }} />
-       性别：<input className={styles.input} type="text" value={sex} onChange={(e)=>{
+     }} /></span>
+       <span className={styles.input}>性别：<input  type="text" value={sex} onChange={(e)=>{
        this.setState({sex:e.target.value})
-     }} />
-       爱好：<input className={styles.input} type="text" value={hobby} onChange={(e)=>{
+     }} /></span>
+       <span className={styles.input}>爱好：<input  type="text" value={hobby} onChange={(e)=>{
        this.setState({hobby:e.target.value})
-     }} />
-       省份：<input className={styles.input} type="text" value={adress} onChange={(e)=>{
+     }} /></span>
+       <span className={styles.input}>省份：<input  type="text" value={adress} onChange={(e)=>{
        this.setState({adress:e.target.value})
-     }} />
-       成绩：<input className={styles.input} type="text" value={grade} onChange={(e)=>{
+     }} /></span><br/>
+      <span className={styles.input}> 成绩：<input  type="text" value={grade} onChange={(e)=>{
        this.setState({grade:e.target.value})
-     }} />
+     }} /></span>
      
     
        {/* <div>级别：<select type="text" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
      }} /> */}
-     级别：<select className={styles.input} name="22" value={gradeType} onChange={(e)=>{
+    <span className={styles.input}>级别：<select  name="22" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
      }}>
      <option value='优秀' selected>优秀</option>
      <option value="良好">良好</option>
      <option value="及格">及格</option>
      <option value="不及格">不及格</option>
-     </select>
+     </select></span> 
      </div>
      <button className={styles.button} onClick={()=>{
        this.submit()
