@@ -11,13 +11,11 @@ class Admin extends React.Component{
     if(!getItem('token')){
       message.success('请先登录再操作',2,()=>{
         this.props.history.push('/login')
-      })
-        
+      })        
     }
 }
     render(){
         return (
-    
             <Layout className={styles.admin}>
          <Sider collapsed={false}>
          <SliderNav></SliderNav>
@@ -25,7 +23,6 @@ class Admin extends React.Component{
          <Layout>
            <Header style={{ background: 'blueviolet', padding: 0 }}>
                <h2 className={styles.h2} style={{marginLeft:'550px'}}>学生信息后台系统管理平台</h2>
- 
              <Icon
                className="trigger"
             
@@ -35,7 +32,7 @@ class Admin extends React.Component{
              style={{
                margin: '24px 16px',
                padding: 24,
-               background: 'yellowgreen',
+               background: '#fff',
                minHeight: 280,
              }}
            >

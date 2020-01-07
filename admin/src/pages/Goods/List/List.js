@@ -1,10 +1,11 @@
 import React ,{Component,Fragment} from 'react';
+import GoodsUpdate from '../Update/Updates'
 import {getItem} from '../../../Utils/webStorages'
 import {getGradesDate} from '../../../Api/getGrades'
 import {delGradesDate} from '../../../Api/delGrades'
 import {getGradesDateByType} from '../../../Api/getGradesByType'
 import {getGradesDateByKw} from '../../../Api/getGradesByKw'
-import {Table,Popconfirm,Button, message,Pagination,Select,Drawer,Input} from 'antd'
+import {Table,Popconfirm,Button, message,Pagination,Select,Drawer} from 'antd'
 const { Option } = Select;
 
 class List extends Component{
@@ -87,19 +88,31 @@ class List extends Component{
               <Button type="danger" size="small" style={{marginRight:'10px'}}>删除</Button>
               </Popconfirm>
               <Button type="primary" size="small" onClick={()=>{
-                this.setState({drawerShow:true})
+                this.setState({drawerShow:true,updataInfo:data})
               }}>修改</Button>
               <Drawer
                 title="Basic Drawer"
                 placement="right"
                 closable={false}
                 onClose={this.onClose}
+                // 通过drawerShow的bollean值控制抽屉的显示隐藏
                 visible={this.state.drawerShow}
+                // 点击其他区域关闭抽屉
+                onClose={()=>{this.setState({drawerShow:false}) }}
               >
-                <Input placeholder="Basic usage" />
-                <Input placeholder="Basic usage" />
-                <Input placeholder="Basic usage" />
+                {/* 抽屉内显示的组件，通过props传递数据和方法*/}
+              <GoodsUpdate
+               updateWeb = {this.getData.bind(this)}
+               updataInfo={this.state.updataInfo} 
+               refreshList={()=>{
+                 // 收起抽屉
+                 this.setState({drawerShow:false}) 
+                 // 更新完毕后刷新界面
+                 this.getData(this.state.nowPage,this.state.pageSize,this.token)
+                }}
+              ></GoodsUpdate>
               </Drawer>
+
             </Fragment>
           )
         }
@@ -114,6 +127,7 @@ class List extends Component{
       drawerShow:false,
       kw:"请输入需要查询的内容",
       selectVal:'全部',
+      updataInfo:{},
     }
   }
   componentDidMount(){
@@ -177,7 +191,7 @@ class List extends Component{
           <Option value="及格">及格</Option>
           <Option value="不及格">不及格</Option>
         </Select>
-        <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px'}} value={this.state.kw} onChange={(e)=>{
+        <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px',border:'1px solid #ccc'}} value={this.state.kw} onChange={(e)=>{
           if(e.target.value===''){
             // console.log(e.target.value)z
             this.getData(this.state.nowPage,this.state.pageSize,this.token)
@@ -198,6 +212,7 @@ class List extends Component{
             this.getDataByType(page,this.state.pageSize,this.state.selectVal,token)
           }
         }}></Pagination>
+        
       </Fragment>
     )
   }

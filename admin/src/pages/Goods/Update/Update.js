@@ -112,13 +112,11 @@ class List extends Component{
   componentDidMount(){
     let {nowPage,pageSize} = this.state
     this.token =getItem('token')
-    console.log(this.token)
     this.getData(nowPage,pageSize,this.token)
   }
   getData(nowPage=1,pageSize,token){
     getGradesDate(nowPage,pageSize,token)
     .then((res)=>{
-      console.log('6666',this)
       this.setState({dataSource:res.list.grades,allCount:res.list.allCount})
       this.setState({drawerShow:false}) 
     })

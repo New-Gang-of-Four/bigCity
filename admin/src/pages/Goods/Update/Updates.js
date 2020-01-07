@@ -37,6 +37,7 @@ class GoodsUpdate extends Component{
       message.success('修改成功')
       console.log(response,this);
       this.props.updateWeb(1,4,token.data)
+      this.props.refreshList()
     })
     .catch((error)=>{
       if(!getItem('token')){
@@ -63,7 +64,6 @@ class GoodsUpdate extends Component{
         成绩:<input type='text' value={grade} onChange={(e)=>{this.setState({grade:e.target.value}) }}/><br/>
         等级:<input type='text' value={gradeType} onChange={(e)=>{this.setState({gradeType:e.target.value}) }}/><br/>
         <Button type='primary' onClick={this.submit}>修改</Button>
-        
       </Fragment>
     );
   }
