@@ -17,8 +17,8 @@ class Login  extends Component{
      let {userName,passWord} = data
      UserLogin(userName,passWord)
      .then((res)=>{
-       console.log('then',res)
-
+       console.log(userName)
+       setItem('usename',userName)
        setItem('token',res.token,1)
        setItem('uid',res.uid,1)
       //  setItem('rootIds',res.rootList)

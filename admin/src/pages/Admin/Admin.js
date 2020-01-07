@@ -3,10 +3,17 @@ import { Layout, Menu, Icon } from 'antd'
 import styles from './admin.module.less'
 import SliderNav from '../../components/SilderNav/silderNav'
 import {withRouter} from 'react-router-dom'
-import {getItem} from '../../Utils/webStorages'
+import {getItem,clear} from '../../Utils/webStorages'
 import {message} from 'antd';
 const { Header, Sider, Content,Footer } = Layout
 class Admin extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      name:getItem('usename')
+    }
+  }
+ 
  componentWillReceiveProps(){
     if(!getItem('token')){
       message.success('请先登录再操作',2,()=>{
@@ -14,6 +21,15 @@ class Admin extends React.Component{
       })
         
     }
+}
+changes(){
+  clear()
+  if(!getItem('token')){
+    message.success('已退出登录',2,()=>{
+      this.props.history.push('/login')
+    })
+      
+  }
 }
     render(){
         return (
@@ -23,7 +39,8 @@ class Admin extends React.Component{
          <SliderNav></SliderNav>
          </Sider>
          <Layout>
-           <Header style={{ background: 'blueviolet', padding: 0 }}>
+           <Header style={{position:'relative', background: 'blueviolet', padding: 0 }}>
+             <p  style={{ position:'absolute',left:'30px',fontWeight:'bolder',fontSize:'15px',}}>{this.state.name}</p><button onClick={()=>{this.changes()}} style={{border:'none' ,position:'absolute',left:'90px',fontWeight:'bolder',fontSize:'15px',background:'blueviolet',height:'100%'}}><span>登出</span></button>
                <h2 className={styles.h2} style={{marginLeft:'550px'}}>学生信息后台系统管理平台</h2>
  
              <Icon
