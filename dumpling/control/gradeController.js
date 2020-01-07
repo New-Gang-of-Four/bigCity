@@ -39,6 +39,7 @@ async function getByKw(kw,page,pageSize){
 // 删除
 async function del(gradeId){
     let result = await GradeModel.deleteOne({id:gradeId})
+    console.log(gradeId,result)
     return result
 }
 

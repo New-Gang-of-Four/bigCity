@@ -21,17 +21,17 @@ class AppRouter extends Component{
                 <Route path='/login' component={Login}></Route>
                 <Route path='/admin'render={()=>{
                     return(
-                      <Admin>
-                         <Switch>
-                             <Route path='/admin/home' component={Home}></Route>
-                             <Route path='/admin/chars/bin' component={CharsBin}></Route>
-                             <Route path='/admin/goods/list' component={GoodsList}></Route>
-                            <Route path='/admin/goods/add' component={GoodsAdd}></Route>
-                            <Route path='/admin/goods/update' component={GoodsUpdate}></Route>
-                            <Route path='/admin/chars/bin' component={CharsBin}></Route>
-                            <Route path='/admin/chars/zhu' component={CharsZhu}></Route>
-                         </Switch>
-                      </Admin>  
+                            <Admin>
+                            <Switch>
+                               <Route path='/admin/home' component={Home}></Route>
+                               <Route path='/admin/chars/bin' component={CharsBin}></Route>
+                               <Route path='/admin/goods/list' component={GoodsList}></Route>
+                               <Route path='/admin/goods/add' component={GoodsAdd}></Route>
+                               <Route path='/admin/goods/update' component={GoodsUpdate}></Route>
+                               <Route path='/admin/chars/bin' component={CharsBin}></Route>
+                               <Route path='/admin/chars/zhu' component={CharsZhu}></Route>
+                            </Switch>
+                         </Admin>
                     )
                 }}></Route>
             </Switch>
