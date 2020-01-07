@@ -13,6 +13,7 @@ async function get(page,pageSize){
     let allGrades = await GradeModel.find()
     let allCount = allGrades.length
     let grades = await GradeModel.find().skip((page-1)*pageSize).limit(pageSize)
+    console.log(grades)
     return {grades,allCount}
 }
 
@@ -37,7 +38,7 @@ async function getByKw(kw,page,pageSize){
 
 // 删除
 async function del(gradeId){
-    let result = await GradeModel.deleteOne({_id:gradeId})
+    let result = await GradeModel.deleteOne({id:gradeId})
     return result
 }
 

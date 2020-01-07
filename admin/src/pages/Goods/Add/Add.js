@@ -24,7 +24,7 @@ class Add extends React.Component {
       name:this.state.name,
       sex:this.state.sex,
       hobby:this.state.hobby,
-      adress:this.state.address,
+      adress:this.state.adress,
       grade:this.state.grade,
       gradeType:this.state.gradeType,
     })
