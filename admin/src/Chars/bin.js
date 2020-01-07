@@ -23,7 +23,7 @@ class Chart extends React.Component {
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '55%',
+                radius: '80%',
                 center: ['50%', '60%'],
                 data: [
                     {value: 335, name: '90分以上'},
