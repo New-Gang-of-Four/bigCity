@@ -125,7 +125,7 @@ class List extends Component{
       pageSize:4,
       nowPage:1,
       drawerShow:false,
-      kw:"请输入需要查询的内容",
+      kw:"",
       selectVal:'全部',
       updataInfo:{},
     }
@@ -195,8 +195,10 @@ class List extends Component{
         <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px',border:'1px solid #ccc'}} value={this.state.kw} onChange={(e)=>{
           if(e.target.value===''){
             // console.log(e.target.value)
+            
             this.getData(this.state.nowPage,this.state.pageSize,this.token)
           }
+          // console.log(this.state.nowPage)
           this.setState({kw:e.target.value})
           setTimeout(()=>{
               // console.log(this.state.kw)
@@ -205,13 +207,24 @@ class List extends Component{
         }}/>
         <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:'40px'}} pagination={false}/>
         <Pagination total={this.state.allCount} pageSize={this.state.pageSize} size={"big"} style={{margin:'50px',marginLeft:'450px'}} showQuickJumper={true} onChange={(page)=>{
-          let token = getItem('token')
-          if(this.state.selectVal==='全部'){
-            console.log(this.state.selectVal)
-            this.getData(page,this.state.pageSize,token)
+         let token = getItem('token')
+         if(this.state.kw===''){
+            if(this.state.selectVal==='全部'){
+              console.log(this.state.selectVal)
+              this.getData(page,this.state.pageSize,token)
+            }else{
+              this.getDataByType(page,this.state.pageSize,this.state.selectVal,token)
+            }
           }else{
-            this.getDataByType(page,this.state.pageSize,this.state.selectVal,token)
+            if(this.state.kw===''){
+              this.getData(page,this.state.pageSize,this.token)
+            }else{
+                this.getDataByKw(page,this.state.pageSize,this.state.kw,this.token)
+            }
           }
+          
+          
+          
         }}></Pagination>
         
       </Fragment>
