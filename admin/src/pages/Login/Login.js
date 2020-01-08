@@ -17,18 +17,23 @@ class Login  extends Component{
      let {userName,passWord} = data
      UserLogin(userName,passWord)
      .then((res)=>{
-       console.log(userName)
-       setItem('usename',userName)
-       setItem('token',res.token,1)
-       setItem('uid',res.uid,1)
-      //  setItem('rootIds',res.rootList)
-       message.success('登录成功，1s后跳转首页',1,()=>{
-         this.props.history.replace('/admin/home')
-
-       })
+       if(res.err===0){
+        console.log(userName)
+        setItem('usename',userName)
+        setItem('token',res.token,1)
+        setItem('uid',res.uid,1)
+       //  setItem('rootIds',res.rootList)
+        message.success('登录成功，1s后跳转首页',1,()=>{
+          this.props.history.replace('/admin/home')
+ 
+        })
+       }else{
+        message.error('登录失败请重试',1)
+       }
+     
      })
      .catch((err)=>{
-       message.error('登录失败请重试',1)
+      
      })
     })
     // let result =getFieldsValue()

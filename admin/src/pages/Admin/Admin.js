@@ -84,7 +84,7 @@ class Admin extends React.Component {
             <Footer>这里是底部</Footer>
           </Layout>
         </Layout>
-        <Modal title='11' visible={this.props.tokenModal} onOk={() => {
+        <Modal title='确认提示' visible={this.props.tokenModal} onOk={() => {
           clear()
           this.props.history.replace('/login')
           this.props.changestate(false)
