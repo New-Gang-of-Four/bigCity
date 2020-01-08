@@ -1,5 +1,5 @@
 import React, { Component,Fragment } from 'react';
-import {Button,message} from 'antd'
+import {Button,message,Input} from 'antd'
 import axios from 'axios'
 import {getItem} from '../../../Utils/webStorages'
 
@@ -55,15 +55,33 @@ class GoodsUpdate extends Component{
     let {_id,name,sex,adress,hobby,grade,gradeType} = this.state
     return (
       <Fragment>
-        id:{_id}
-        <br/>
-        姓名:<input type='text' value={name} onChange={(e)=>{this.setState({name:e.target.value}) }}/><br/>
-        性别:<input type='text' value={sex} onChange={(e)=>{this.setState({sex:e.target.value}) }}/><br/>
-        爱好:<input type='text' value={hobby} onChange={(e)=>{this.setState({hobby:e.target.value}) }}/><br/>
-        住址:<input type='text' value={adress} onChange={(e)=>{this.setState({adress:e.target.value}) }}/><br/>
-        成绩:<input type='text' value={grade} onChange={(e)=>{this.setState({grade:e.target.value}) }}/><br/>
-        等级:<input type='text' value={gradeType} onChange={(e)=>{this.setState({gradeType:e.target.value}) }}/><br/>
-        <Button type='primary' onClick={this.submit}>修改</Button>
+        
+        <p style={{marginTop:'40px'}}>
+          <label>姓名:</label>
+          <Input type='text' value={name}  style={{marginTop:'10px'}} onChange={(e)=>{this.setState({name:e.target.value}) }}/>
+        </p>
+        <p>
+          <label>性别:</label>
+          <Input type='text' value={sex}  style={{marginTop:'10px'}} onChange={(e)=>{this.setState({sex:e.target.value}) }}/>
+        </p>
+        <p>
+          <label>爱好:</label>
+          <Input type='text' value={hobby}  style={{marginTop:'10px'}} onChange={(e)=>{this.setState({hobby:e.target.value}) }}/>
+        </p>
+        <p>
+          <label>住址:</label>
+          <Input type='text' value={adress}  style={{marginTop:'10px'}} onChange={(e)=>{this.setState({adress:e.target.value}) }}/>
+        </p>
+        <p>
+          <label>成绩:</label>
+          <Input type='text' value={grade} style={{marginTop:'10px'}}  onChange={(e)=>{this.setState({grade:e.target.value}) }}/>
+        </p>
+        <p>
+          <label>等级:</label>
+          <Input type='text' value={gradeType} style={{marginTop:'10px'}} onChange={(e)=>{this.setState({gradeType:e.target.value}) }}/>
+        </p>
+        
+        <Button type='primary' style={{marginLeft:'80px',marginTop:'30px'}} onClick={this.submit}>修改</Button>
       </Fragment>
     );
   }

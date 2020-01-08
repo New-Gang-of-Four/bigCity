@@ -170,23 +170,25 @@ class List extends Component{
           <Option value="及格">及格</Option>
           <Option value="不及格">不及格</Option>
         </Select>
-        <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px'}} value={this.state.kw} onChange={(e)=>{
+        <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px',border:'1px solid #ccc'}} value={this.state.kw} onChange={(e)=>{
           if(e.target.value===''){
             // console.log(e.target.value)z
             this.getData(this.state.nowPage,this.state.pageSize,this.token)
           }
           this.setState({kw:e.target.value})
-          this.getDataByKw(this.state.nowPage,this.state.pageSize,this.state.kw,this.token)
+          setTimeout(()=>{
+              // console.log(this.state.kw)
+              this.getDataByKw(this.state.nowPage,this.state.pageSize,this.state.kw,this.token)
+          },500)
         }}/>
         <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:'40px'}} pagination={false}/>
         <Pagination total={this.state.allCount} pageSize={this.state.pageSize} size={"big"} style={{margin:'50px',marginLeft:'450px'}} showQuickJumper={true} onChange={(page)=>{
           let token = getItem('token')
-          
           if(this.state.selectVal==='全部'){
             console.log(this.state.selectVal)
             this.getData(page,this.state.pageSize,token)
           }else{
-            this.getDataByType(this.state.nowPage,this.state.pageSize,this.state.selectVal,this.token)
+            this.getDataByType(page,this.state.pageSize,this.state.selectVal,this.token)
           }
         }}></Pagination>
         <Drawer

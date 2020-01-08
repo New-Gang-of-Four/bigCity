@@ -194,7 +194,7 @@ class List extends Component{
         </Select>
         <input placeholder="请输入搜索内容" style={{border:0,width:'200px',height:'30px',marginLeft:'20px',borderRadius:'4px',paddingLeft:'10px',border:'1px solid #ccc'}} value={this.state.kw} onChange={(e)=>{
           if(e.target.value===''){
-            // console.log(e.target.value)z
+            // console.log(e.target.value)
             this.getData(this.state.nowPage,this.state.pageSize,this.token)
           }
           this.setState({kw:e.target.value})
