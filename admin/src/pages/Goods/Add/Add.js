@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios'
-import { message, Button, Icon} from 'antd';
+import axios from '../../../Utils/axios'
+import { message, Button, Icon,Input,Select} from 'antd';
 import { getItem } from '../../../Utils/webStorages'
 import styles from './add.module.less'
 class Add extends React.Component {
@@ -51,28 +51,28 @@ class Add extends React.Component {
   render() {
     let { name, sex, hobby, adress, grade, gradeType } = this.state
     return (
-      <div style={{ background: '#ddd', paddingLeft: '30px', marginTop: '-24px', height: '536px', width: '1305px', marginLeft: '-24px' }}>
+      <div style={{ background: 'url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578483294110&di=69b4645d00c2b3cd2c413e03d78c9b33&imgtype=0&src=http%3A%2F%2Fpic.912pic.com%2Fc5%2F5b%2Fc55baa5aebeec12958629167f23f06ce.jpg")', paddingLeft: '120px', marginTop: '-24px', height: '536px', width: '1305px', marginLeft: '-24px'}}>
         <div>
-          <span className={styles.input} style={{ width: '1000px', height: '40px', marginTop: '60px', fontWeight: 'bold' }} >名 字：<input type="text" style={{ width: '900px', border: '1px solid #ccc', height: '30px', paddingLeft: '15px' }} value={name} onChange={(e) => {
+          <span className={styles.input} style={{ width: '1000px', height: '40px', marginTop: '60px', fontWeight: 'bold' , fontSize:'16px'}} >名 字：<Input type="text" style={{ width: '900px', height: '35px', paddingLeft: '15px' }} value={name} onChange={(e) => {
             this.setState({ name: e.target.value })
           }} /></span>
-          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' }}>性 别：<input type="text" value={sex} style={{ width: '900px', border: '1px solid #ccc', height: '30px', paddingLeft: '15px' }} onChange={(e) => {
+          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' , fontSize:'16px'}}>性 别：<Input type="text" value={sex} style={{ width: '900px', height: '35px', paddingLeft: '15px' }} onChange={(e) => {
             this.setState({ sex: e.target.value })
           }} /></span>
-          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' }}>爱 好：<input type="text" value={hobby} style={{ width: '900px', border: '1px solid #ccc', height: '30px', paddingLeft: '15px' }} onChange={(e) => {
+          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' , fontSize:'16px'}}>爱 好：<Input type="text" value={hobby} style={{ width: '900px', height: '35px', paddingLeft: '15px' }} onChange={(e) => {
             this.setState({ hobby: e.target.value })
           }} /></span>
-          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' }}>省 份：<input type="text" value={adress} style={{ width: '900px', border: '1px solid #ccc', height: '30px', paddingLeft: '15px' }} onChange={(e) => {
+          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold', fontSize:'16px' }}>省 份：<Input type="text" value={adress} style={{ width: '900px', height: '35px', paddingLeft: '15px' }} onChange={(e) => {
             this.setState({ adress: e.target.value })
           }} /></span><br />
-          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' }}> 成 绩：<input type="text" value={grade} style={{ width: '900px', border: '1px solid #ccc', height: '30px', paddingLeft: '15px' }} onChange={(e) => {
+          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' , fontSize:'16px'}}> 成 绩：<Input type="text" value={grade} style={{ width: '900px', height: '35px', paddingLeft: '15px' }} onChange={(e) => {
             this.setState({ grade: e.target.value })
           }} /></span>
 
           {/* <div>级别：<select type="text" value={gradeType} onChange={(e)=>{
        this.setState({gradeType:e.target.value})
      }} /> */}
-          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' }}>级 别：<select name="22" style={{ width: '900px', border: '1px solid #ccc', height: '30px' }} value={gradeType} onChange={(e) => {
+          <span className={styles.input} style={{ width: '1000px', height: '40px', fontWeight: 'bold' , fontSize:'16px' }}>级 别：<select name="22" style={{ width: '900px', border:'1px solid #eee' ,borderRadius:'6px' ,height: '35px' }} value={gradeType} onChange={(e) => {
             this.setState({ gradeType: e.target.value })
           }}>
             <option value='优秀' selected>优秀</option>

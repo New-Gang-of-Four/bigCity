@@ -19,6 +19,6 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 const admin = require('./admin/admin')
 const tokenMiddleWare = require('./middleware/token')
 app.use('/v1/admin',tokenMiddleWare,admin)
-app.listen(6666,(res)=>{
+app.listen(3003,(res)=>{
 console.log('服务开启')
 })

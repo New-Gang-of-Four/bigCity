@@ -5,19 +5,26 @@ export const UserLogin=(userName,passWord)=>{
   return new Promise((resolve,reject)=>{
     let url='/hehe/v1/admin/user/login'
     axios.post(url,{userName,passWord})
+
     .then((res)=>{
-      console.log('6666',res)
-      if(res.err === 0){
-        resolve(res)
-      }else{
-        reject(res)
-      }   
+      resolve(res)
     })
-    .catch((err)=>{
-      reject(err)
-    })
+    
   })
 }
+
+// 修改密码
+export const ChangePw=async (oldPassWord,newPassWord,token)=>{
+  let url = "http://39.99.236.159:3003/v1/admin/user/changePw"
+  let result = await axios.post(url,{oldPassWord,newPassWord,token})
+  console.log(result)
+  switch(result.err){
+    case 0 : return result;
+    break;
+    case -1 : return result;
+  }
+}
+
 
 // 登出
 

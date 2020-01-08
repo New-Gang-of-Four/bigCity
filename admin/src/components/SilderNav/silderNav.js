@@ -17,7 +17,6 @@ class SliderNav extends Component {
 
                 <SubMenu title='学生管理' style={{marginTop:'10px',marginBottom:'10px'}}>
                     <Menu.Item><Link to='/admin/goods/add'>信息添加 </Link></Menu.Item>
-
                     <Menu.Item><Link to='/admin/goods/update'>信息修改 </Link></Menu.Item>
                     <Menu.Item><Link to='/admin/goods/list'>信息查询 </Link></Menu.Item>
                 </SubMenu>
@@ -33,7 +32,18 @@ class SliderNav extends Component {
                      </span>
                     </Link>
                 </Menu.Item>
-
+                
+                <SubMenu title='设置' style={{marginTop:'10px',marginBottom:'10px'}}>
+                    <Menu.Item>
+                        <Link to='/admin/changePw'>
+                            <span>
+                                <Icon type="edit" />
+                                修改密码
+                            </span>
+                            
+                        </Link>
+                    </Menu.Item>
+                </SubMenu>
             </Menu>
         )
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactEcharts from "echarts-for-react";
-import axios from 'axios'
+import axios from '../Utils/axios'
 class Chart extends React.Component {
   constructor(){
     super()
