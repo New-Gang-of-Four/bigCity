@@ -11,7 +11,7 @@ export const getItem=(key)=>{
   let data=JSON.parse(localStorage.getItem(key))
   if(!data){return null}
   let nowtime=(new Date()).getTime()
-  if(nowtime-data.newtime>=data.times*1000*60){
+  if(nowtime-data.newtime>=data.times*1000*60*60){
       return localStorage.removeItem(key)
   }else{
       return data.data
