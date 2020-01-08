@@ -1,10 +1,15 @@
-import React from 'react';
+import React,{Fragment} from 'react';
 import { Layout, Menu, Icon } from 'antd'
 import styles from './admin.module.less'
 import SliderNav from '../../components/SilderNav/silderNav'
 import {withRouter} from 'react-router-dom'
 import {getItem,clear} from '../../Utils/webStorages'
-import {message,Popconfirm,Button} from 'antd';
+import {message,Popconfirm,Button,Modal} from 'antd';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import ActionCreator from '../../store/actionCreatore'
+
+import connected from 'rc-menu/lib/SubMenu';
 const { Header, Sider, Content,Footer } = Layout
 class Admin extends React.Component{
   constructor(){
@@ -25,6 +30,7 @@ changes(){
 }
     render(){
         return (
+          <Fragment>
         <Layout className={styles.admin}>
          <Sider collapsed={false}>
          <SliderNav></SliderNav>
@@ -36,15 +42,18 @@ changes(){
              <Icon className="trigger"/>
              <p  style={{ position:'absolute',left:'1050px',top:'0px',fontWeight:'bolder',fontSize:'14px',color:'#c9c9c9',lineHeight:'70px'}}>你好，<Icon type="smile" theme="twoTone"></Icon> {this.state.name} <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" /></p>
              <Popconfirm
-              title="确定删除吗？"
+              title="确定退出吗？"
               onConfirm={()=>{
-              clear()
-              if(!getItem('token')){
-                message.success('已退出登录',2,()=>{
-                  this.props.history.push('/login')
-                })
+              
+              
+             
+              // if(!getItem('token')){
+              //   message.success('已退出登录',1,()=>{
+                  // this.props.history.push('/login')
+                  this.props.changestate(true)
+                // })
                   
-              }
+              // }
             }}
             okText="确定"
             cancelText="取消"
@@ -66,10 +75,21 @@ changes(){
            <Footer>这里是底部</Footer>
          </Layout>
        </Layout>
-     
+       <Modal title='11' visible={this.props.tokenModal}  onOk={()=>{
+         clear()
+          this.props.history.replace('/login')
+          this.props.changestate(false)
+        }}
+        onCancel={()=>{
+          clear()
+          this.props.changestate(false)
+        }}>
+              请返回登录窗口重新登录
+       </Modal>
+       </Fragment>
    );
     }
 }
 
 
-export default withRouter(Admin) ;
+export default connect(state=>state,(dispatch)=>{return (bindActionCreators(ActionCreator,dispatch))})(withRouter(Admin)) ;
