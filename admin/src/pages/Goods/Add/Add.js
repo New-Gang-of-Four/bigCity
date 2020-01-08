@@ -17,10 +17,10 @@ class Add extends React.Component {
   }
   submit() {
     if (this.state.name !== '' && this.state.sex !== '' && this.state.hobby !== '' && this.state.adress !== '' && this.state.grade !== '') {
-      let token = JSON.parse(localStorage.getItem('token'))
+      let token=getItem('token')
       let url = 'http://39.99.236.159:3003/v1/admin/grade/addGrades'
       axios.post(url, {
-        token: token.data,
+        token: token,
         name: this.state.name,
         sex: this.state.sex,
         hobby: this.state.hobby,

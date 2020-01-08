@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactEcharts from "echarts-for-react";
 import axios from 'axios'
+import {getItem} from '../../src/Utils/webStorages'
 class Chart extends React.Component {
   constructor(){
     super()
@@ -57,10 +58,10 @@ class Chart extends React.Component {
   }
   componentDidMount(){
     console.log(this.state.option.series[0].data)
-    let token=JSON.parse(localStorage.getItem('token')) 
+    let token=getItem('token')
     let  url='http://39.99.236.159:3003/v1/admin/grade/getGradesByType'
      axios.post(url, {
-       token:token.data, 
+       token:token, 
        page:1,
        pageSize:2,
        gradeType:'及格',
@@ -70,7 +71,7 @@ class Chart extends React.Component {
       option.series[0].data.push(response.list.allCount)
       this.setState({option})
             axios.post(url, {
-              token:token.data, 
+              token:token, 
               page:1,
               pageSize:2,
               gradeType:'优秀',
@@ -80,7 +81,7 @@ class Chart extends React.Component {
             option.series[0].data.push(response1.list.allCount)
             this.setState({option})
                     axios.post(url, {
-                      token:token.data, 
+                      token:token, 
                       page:1,
                       pageSize:2,
                       gradeType:'不及格',
@@ -90,7 +91,7 @@ class Chart extends React.Component {
                     option.series[0].data.push(response2.list.allCount)
                      this.setState({option})
                             axios.post(url, {
-                              token:token.data, 
+                              token:token, 
                               page:1,
                               pageSize:2,
                               gradeType:'良好',
