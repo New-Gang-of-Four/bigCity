@@ -104,7 +104,7 @@ class List extends Component{
       pageSize:4,
       nowPage:1,
       drawerShow:false,
-      kw:"请输入需要查询的内容",
+      kw:"",
       selectVal:'全部',
       updataInfo:{updateState:false}
     }
@@ -183,13 +183,21 @@ class List extends Component{
         }}/>
         <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:'40px'}} pagination={false}/>
         <Pagination total={this.state.allCount} pageSize={this.state.pageSize} size={"big"} style={{margin:'50px',marginLeft:'450px'}} showQuickJumper={true} onChange={(page)=>{
-          let token = getItem('token')
-          if(this.state.selectVal==='全部'){
-            console.log(this.state.selectVal)
-            this.getData(page,this.state.pageSize,token)
+         let token = getItem('token')
+         if(this.state.kw===''){
+            if(this.state.selectVal==='全部'){
+              console.log(this.state.selectVal)
+              this.getData(page,this.state.pageSize,token)
+            }else{
+              this.getDataByType(page,this.state.pageSize,this.state.selectVal,token)
+            }
           }else{
-            this.getDataByType(page,this.state.pageSize,this.state.selectVal,this.token)
-          }
+            if(this.state.kw===''){
+              this.getData(page,this.state.pageSize,this.token)
+            }else{
+                this.getDataByKw(page,this.state.pageSize,this.state.kw,this.token)
+            }
+          }        
         }}></Pagination>
         <Drawer
           closable={true}

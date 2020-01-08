@@ -221,10 +221,7 @@ class List extends Component{
             }else{
                 this.getDataByKw(page,this.state.pageSize,this.state.kw,this.token)
             }
-          }
-          
-          
-          
+          }        
         }}></Pagination>
         
       </Fragment>
