@@ -92,7 +92,20 @@ class Login extends Component {
       else{
         let {userName,passWord} = data
         if(remember){
-          cookie.save('userId', {userName,passWord}, { path: '/' })
+          // const expires = (new Date()).getTime()+1000*60*60
+          const expires = new Date()
+          expires.setTime(expires.getTime()+1000*60*60)
+          // console.log(expires.toGMTString())
+          // expires.setDate(expires.getDate() + 1000 * 60 * 60 * 24 * 14)
+          console.log(expires)
+          cookie.save(
+            'userId', 
+            {userName,passWord},
+             {
+              path: '/',
+              expires:expires
+          }
+          )
         }else{
           cookie.remove('userId', { path: '/' })
         }
