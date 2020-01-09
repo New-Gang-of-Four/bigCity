@@ -2,12 +2,41 @@ import React, { Component } from 'react';
 import { Card, Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import 'antd/dist/antd.css'
 import { UserLogin } from '../../Api/User'
-import {GetCode} from '../../Api/User'
+import { GetCode } from '../../Api/User'
 import { setItem } from '../../Utils/webStorages'
+import cookie from 'react-cookies'
+// import {setCookie,getCookie} from '../../Utils/webCookie'
 import styles from './login.module.less'
 
 class Login extends Component {
   // login即点击登录按钮后执行的登陆操作，是一个函数
+  constructor(){
+    super()
+    // this.state={
+    //   userName:'',
+    //   passWord:''
+    // }
+  }
+  componentDidMount(){
+    let check = cookie.load('userId')
+    console.log(check)
+    if(check){
+      console.log('cunzai ')
+      // this.setState({userName:check.userName})
+      // this.setState({passWord:check.passWord})
+      let { validateFields } = this.props.form
+      validateFields((err,data)=>{
+        console.log(data)
+        if (err) {return message.error('请重试', 1)}
+        else{
+          // data.userName=check.userName
+          // data.passWord=check.passWord
+          this.props.form.setFieldsValue({userName:check.userName});
+          this.props.form.setFieldsValue({passWord:check.passWord});
+        }
+      })
+    }
+  }
   login = () => {
     let { validateFields } = this.props.form
     validateFields((err, data) => {
@@ -15,8 +44,8 @@ class Login extends Component {
       //err 前端的字段验证 true 不通过 null 没问题
       if (err) return message.error('输入有误,请重试!', 1)
       //字段验证ok 继续向下
-      let { userName, passWord ,code,mail} = data
-      UserLogin(userName, passWord,code,mail)
+      let { userName, passWord, code, mail } = data
+      UserLogin(userName, passWord, code, mail)
         .then((res) => {
           console.log(res)
           if (res.err === 0) {
@@ -40,20 +69,34 @@ class Login extends Component {
     // let result =getFieldsValue()
     // console.log(result)
   }
-  getCode=()=>{
+  getCode = () => {
     let { validateFields } = this.props.form
-    validateFields((err,data)=>{
+    validateFields((err, data) => {
       console.log(data)
       if (err) return message.error('输入有误,请重试!', 1)
       console.log(data)
-      let {mail} = data
+      let { mail } = data
       GetCode(mail)
-      .then((res)=>{
-        console.log(res)
-        if(res=='发送成功'){
-          message.success('发送成功',1)
+        .then((res) => {
+          console.log(res)
+          if (res == '发送成功') {
+            message.success('发送成功', 1)
+          }
+        })
+    })
+  }
+  rememberMe(remember){
+    let { validateFields } = this.props.form
+    validateFields((err,data)=>{
+      if (err) {return message.error('请重试', 1)}
+      else{
+        let {userName,passWord} = data
+        if(remember){
+          cookie.save('userId', {userName,passWord}, { path: '/' })
+        }else{
+          cookie.remove('userId', { path: '/' })
         }
-      })
+      }
     })
   }
   render() {
@@ -85,13 +128,12 @@ class Login extends Component {
               // rules: [{ required: true, message: '用户密码不能为空' }]
             })(
               <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}  />}
                 type="password"
                 placeholder="Password"
               />
             )}
           </Form.Item>
-
           {/* 邮箱 */}
           <Form.Item>
             {getFieldDecorator('mail', {
@@ -105,13 +147,13 @@ class Login extends Component {
               //     message: '邮箱不能为空',
               //   },
               // ],
-            })(<Input 
+            })(<Input
               prefix={<Icon type="ie" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="E-mail"
             />)}
           </Form.Item>
-{/* 输入验证码 */}
-          <Form.Item style={{width:'180px'}}>
+          {/* 输入验证码 */}
+          <Form.Item style={{ width: '180px' }}>
             {getFieldDecorator('code', {
               // rules: [
               //   {
@@ -123,32 +165,38 @@ class Login extends Component {
               //     message: '请填写验证码',
               //   },
               // ],
-            })(<Input 
-              prefix={<Icon type="code-sandbox" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+            })(<Input
+              prefix={<Icon type="code-sandbox" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="请输入验证码"
-            />)}           
+            />)}
           </Form.Item>
-{/* 获取验证码 */}
-          <Form.Item style={{width:'50px',height:'20px',postion:'absolute',top:'-65px',left:'195px'}}>
-            <Button type="primary" style={{height:'32px'}} onClick={()=>{
+          {/* 获取验证码 */}
+          <Form.Item style={{ width: '50px', height: '20px', postion: 'absolute', top: '-65px', left: '195px' }}>
+            <Button type="primary" style={{ height: '32px' }} onClick={() => {
               this.getCode()
             }}>获取验证码</Button>
           </Form.Item>
           {/* <input type="text" placeholder="请输入验证码"/>
             <label onClick="getCode">获取验证码</label> */}
 
-
-          <Form.Item style={{position:'absolute',top:'300px'}}>
-            <p>{/* 记住按钮,理应有操作 */}
-              <Checkbox style={{fontSize:'12px'}}>Remember me</Checkbox>
-              {/* 忘记密码,应有页面跳转 */}
+          <Form.Item style={{ position: 'absolute', top: '300px' }}>
+            {/* 记住按钮,理应有操作 */}
+            {getFieldDecorator('remember', {
+              valuePropName: 'checked',
+              // initialValue: true,
+            })(<Checkbox style={{fontSize:'12px'}} onChange={(e)=>{
+              console.log(e.target.checked)
+              this.rememberMe(e.target.checked)
+            }}>Remember me</Checkbox>)}
+            {/* 忘记密码,应有页面跳转 */}
+            <p style={{position:'absolute',left:'160px',top:'-10px',width:'100px'}}>
               <a className="login-form-forgot" href="" onClick={() => {
                 this.props.history.push('/admin/changePw')
-              }} style={{fontSize:'12px',marginLeft:'30px'}}>
+              }} style={{ fontSize: '12px'}}>
                 忘记密码？
             </a></p>
             <p>{/* 登录按钮，点击执行登录 */}
-              <Button type="primary" onClick={this.login} style={{marginLeft:'120px'}}>
+              <Button type="primary" onClick={this.login} style={{ marginLeft: '120px' }}>
                 登录
               </Button>
               {/* 注册界面 */}
