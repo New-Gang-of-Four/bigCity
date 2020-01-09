@@ -1,9 +1,10 @@
 import React ,{useState} from 'react';
+import {withRouter} from 'react-router-dom'
 import {getItem} from '../../Utils/webStorages'
 import {Input,Button,message} from 'antd'
+import { ChangePw } from '../../Api/User'
 
-
-function ChangePw() {
+function ChangePassword() {
   let [oldVal,setOldVal] = useState('')
   let [newVal,setNewVal] = useState('')
   let [affirmVal,setAffirmVal] = useState('')
@@ -37,7 +38,7 @@ function ChangePw() {
         .then((data)=>{
           console.log(data)
           switch(data.err){
-            case 0 : message.success('修改成功',1);
+            case 0 : message.success('修改成功',1);<a href="/login"></a>
             break;
             case -1 : message.success('请输入正确的原始密码');
           }
@@ -51,4 +52,4 @@ function ChangePw() {
   );
 }
 
-export default ChangePw;
+export default withRouter(ChangePassword);

@@ -33,7 +33,7 @@ class List extends Component{
         title: '性别',
         dataIndex: 'sex',
         key: 'sex',
-        width: 120,
+        width: 100,
         textAlign:'center'
       },
       {

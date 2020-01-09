@@ -32,7 +32,7 @@ class List extends Component{
         title: '性别',
         dataIndex: 'sex',
         key: 'sex',
-        width: 150,
+        width: 100,
         textAlign:'center'
       },
       {
@@ -93,7 +93,7 @@ class List extends Component{
               <Drawer
                 title="Basic Drawer"
                 placement="right"
-                closable={false}
+                // closable={false}
                 onClose={this.onClose}
                 // 通过drawerShow的bollean值控制抽屉的显示隐藏
                 visible={this.state.drawerShow}
