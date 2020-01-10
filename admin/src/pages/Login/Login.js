@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {getQuestions} from '../../Api/questions'
 import { Card, Form, Icon, Input, Button, Checkbox, message,Modal } from 'antd';
 import 'antd/dist/antd.css'
 import { UserLogin } from '../../Api/User'
@@ -15,7 +16,8 @@ class Login extends Component {
     super()
     this.state = { 
       visible: false ,
-      answer:''
+      answer:'',
+      question:'你的用户名是？'
     };
   }
   handleOk = e => {
@@ -41,8 +43,15 @@ class Login extends Component {
     })
   }
   componentDidMount() {
+    // let id = '5e17f4413a04c54fb680a9d9'
+    // getQuestions()
+    // .then((res)=>{
+    //   console.log(res)
+    //   // this.setState({question:res.data})
+    // })
+
     let check = cookie.load('userId')
-    console.log(check)
+    // console.log(check)
     if (check) {
       let { validateFields } = this.props.form
       validateFields((err, data) => {
@@ -233,7 +242,7 @@ class Login extends Component {
               onOk={this.handleOk}
               onCancel={this.handleCancel}
             >
-              <h4>你的用户名是？</h4>
+              <h4>{this.state.question}</h4>
               <Input value={this.state.answer} onChange={(e)=>{
                 this.setState({answer:e.target.value})
               }}></Input>

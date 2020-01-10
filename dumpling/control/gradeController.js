@@ -1,4 +1,4 @@
-const GradeModel = require('../db/modal/gradeModel')
+const GradeModel = require('../db/Modal/gradeModel')
 
 
 // 添加

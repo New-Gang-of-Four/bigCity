@@ -4,6 +4,7 @@ import { HashRouter, NavLink, Route, Redirect, Switch } from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Admin from '../pages/Admin/Admin'
 import ChangePw from '../pages/Setting/ChangePw'
+import resetQuestion from '../pages/Setting/resetQuestion'
 import ResetPw from '../pages/Setting/resetPw'
 import Home from '../pages/Home/Home'
 import GoodsList from '../pages/Goods/List/List'
@@ -33,7 +34,7 @@ class AppRouter extends Component {
                                     <Route path='/admin/chars/bin' component={CharsBin}></Route>
                                     <Route path='/admin/chars/zhu' component={CharsZhu}></Route>
                                     <Route path='/admin/changePw' component={ChangePw}></Route>
-                                    
+                                    <Route path='/admin/resetQuestion' component={resetQuestion}></Route>
                                 </Switch>
                             </Admin>
                         )

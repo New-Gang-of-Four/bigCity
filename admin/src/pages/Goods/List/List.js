@@ -80,6 +80,8 @@ class List extends Component{
               title="确定删除吗？"
               onConfirm={()=>{
                 let token = getItem('token')
+                // console.log(data)
+                console.log(token)
                 this.delData(data._id,token)
               }}
               okText="确定"
@@ -208,6 +210,7 @@ class List extends Component{
         <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:'40px'}} pagination={false}/>
         <Pagination total={this.state.allCount} pageSize={this.state.pageSize} size={"big"} style={{margin:'50px',marginLeft:'450px'}} showQuickJumper={true} onChange={(page)=>{
          let token = getItem('token')
+         this.setState({nowPage:page})
          if(this.state.kw===''){
             if(this.state.selectVal==='全部'){
               console.log(this.state.selectVal)

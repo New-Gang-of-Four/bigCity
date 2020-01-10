@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Button,Input} from 'antd'
+import {resetPassword} from '../../Api/questions'
+import {Button,Input, message} from 'antd'
 
 
 class ResetPassword extends Component {
@@ -28,7 +29,21 @@ class ResetPassword extends Component {
                     }} />
                 </p>
                 <Button type="primary" block style={{ width: '800px', marginLeft: '340px',height:'35px'}} onClick={() => {
-
+                    if(this.state.newVal !== this.state.affirmVal){
+                        message.error('密码输入不一致，请重新输入')
+                    }else{
+                        resetPassword(this.state.newVal)
+                        .then((data)=>{
+                            console.log(data)
+                            switch(data.err){
+                                case 0 : message.success('修改成功',1);setTimeout(()=>{
+                                    this.props.history.push('/login');
+                                },1000) 
+                                break;
+                            }
+                        })
+                    }
+                    
                 }}>
                     修改
                 </Button>

@@ -40,7 +40,14 @@ class SliderNav extends Component {
                                 <Icon type="edit" />
                                 修改密码
                             </span>
-                            
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link to='/admin/resetQuestion'>
+                            <span>
+                                <Icon type="highlight" />
+                                重置问题
+                            </span>
                         </Link>
                     </Menu.Item>
                 </SubMenu>
