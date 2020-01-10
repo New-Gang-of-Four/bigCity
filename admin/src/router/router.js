@@ -4,6 +4,7 @@ import { HashRouter, NavLink, Route, Redirect, Switch } from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Admin from '../pages/Admin/Admin'
 import ChangePw from '../pages/Setting/ChangePw'
+import ResetPw from '../pages/Setting/resetPw'
 import Home from '../pages/Home/Home'
 import GoodsList from '../pages/Goods/List/List'
 import GoodsAdd from '../pages/Goods/Add/Add'
@@ -19,6 +20,7 @@ class AppRouter extends Component {
                 <Switch>
                     {getItem('token') ? <Redirect exact from='/' to='/admin/home'></Redirect> : <Redirect exact from='/' to='/login'></Redirect>}
                     <Route path='/login' component={Login}></Route>
+                    <Route path='/resetPw' component={ResetPw}></Route>
                     <Route path='/admin' render={() => {
                         return (
                             <Admin>
@@ -31,6 +33,7 @@ class AppRouter extends Component {
                                     <Route path='/admin/chars/bin' component={CharsBin}></Route>
                                     <Route path='/admin/chars/zhu' component={CharsZhu}></Route>
                                     <Route path='/admin/changePw' component={ChangePw}></Route>
+                                    
                                 </Switch>
                             </Admin>
                         )

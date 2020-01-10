@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Card, Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { Card, Form, Icon, Input, Button, Checkbox, message,Modal } from 'antd';
 import 'antd/dist/antd.css'
 import { UserLogin } from '../../Api/User'
+import {verifyAnswer} from '../../Api/questions'
 import { GetCode } from '../../Api/User'
 import { setItem } from '../../Utils/webStorages'
 import cookie from 'react-cookies'
@@ -10,22 +11,47 @@ import styles from './login.module.less'
 
 class Login extends Component {
   // login即点击登录按钮后执行的登陆操作，是一个函数
-  constructor(){
+  constructor() {
     super()
+    this.state = { 
+      visible: false ,
+      answer:''
+    };
   }
-  componentDidMount(){
+  handleOk = e => {
+    console.log(e);
+    verifyAnswer(this.state.answer)
+    .then((res)=>{
+      switch (res.err){
+        case 0 : message.success('验证成功',1);this.props.history.push('/resetPw')
+        break;
+        case -1 : message.error('答案错误，请重新验证',1);
+        break;
+      }
+    })
+    this.setState({
+      visible: false,
+    })
+  }
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    })
+  }
+  componentDidMount() {
     let check = cookie.load('userId')
     console.log(check)
-    if(check){
-      console.log('cunzai ')
+    if (check) {
       let { validateFields } = this.props.form
-      validateFields((err,data)=>{
+      validateFields((err, data) => {
         console.log(data)
-        if (err) {return message.error('请重试', 1)}
-        else{
-          this.props.form.setFieldsValue({userName:check.userName});
-          this.props.form.setFieldsValue({passWord:check.passWord});
-          this.props.form.setFieldsValue({mail:check.mail});
+        if (err) { return message.error('请重试', 1) }
+        else {
+          this.props.form.setFieldsValue({ userName: check.userName });
+          this.props.form.setFieldsValue({ passWord: check.passWord });
+          this.props.form.setFieldsValue({ mail: check.mail });
         }
       })
     }
@@ -76,28 +102,28 @@ class Login extends Component {
         })
     })
   }
-  rememberMe(remember){
+  rememberMe(remember) {
     let { validateFields } = this.props.form
-    validateFields((err,data)=>{
-      if (err) {return message.error('请重试', 1)}
-      else{
-        let {userName,passWord,mail} = data
-        if(remember){
+    validateFields((err, data) => {
+      if (err) { return message.error('请重试', 1) }
+      else {
+        let { userName, passWord, mail } = data
+        if (remember) {
           // const expires = (new Date()).getTime()+1000*60*60
           const expires = new Date()
-          expires.setTime(expires.getTime()+1000*60*60)
+          expires.setTime(expires.getTime() + 1000 * 60 * 60)
           // console.log(expires.toGMTString())
           // expires.setDate(expires.getDate() + 1000 * 60 * 60 * 24 * 14)
           console.log(expires)
           cookie.save(
-            'userId', 
-            {userName,passWord,mail},
-             {
+            'userId',
+            { userName, passWord, mail },
+            {
               path: '/',
-              expires:expires
-          }
+              expires: expires
+            }
           )
-        }else{
+        } else {
           cookie.remove('userId', { path: '/' })
         }
       }
@@ -132,7 +158,7 @@ class Login extends Component {
               // rules: [{ required: true, message: '用户密码不能为空' }]
             })(
               <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}  />}
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
                 placeholder="Password"
               />
@@ -188,17 +214,30 @@ class Login extends Component {
             {getFieldDecorator('remember', {
               valuePropName: 'checked',
               // initialValue: true,
-            })(<Checkbox style={{fontSize:'12px'}} onChange={(e)=>{
+            })(<Checkbox style={{ fontSize: '12px' }} onChange={(e) => {
               console.log(e.target.checked)
               this.rememberMe(e.target.checked)
             }}>Remember me</Checkbox>)}
             {/* 忘记密码,应有页面跳转 */}
-            <p style={{position:'absolute',left:'160px',top:'-10px',width:'100px'}}>
-              <a className="login-form-forgot" href="" onClick={() => {
-                this.props.history.push('/admin/changePw')
-              }} style={{ fontSize: '12px'}}>
+            <p style={{ position: 'absolute', left: '160px', top: '-10px', width: '100px' }}>
+              <a type="primary" className="login-form-forgot" onClick={() => {
+                this.setState({
+                  visible: true,
+                })
+              }} style={{ fontSize: '12px' }}>
                 忘记密码？
             </a></p>
+            <Modal
+              title="问题验证"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <h4>你的用户名是？</h4>
+              <Input value={this.state.answer} onChange={(e)=>{
+                this.setState({answer:e.target.value})
+              }}></Input>
+            </Modal>
             <p>{/* 登录按钮，点击执行登录 */}
               <Button type="primary" onClick={this.login} style={{ marginLeft: '120px' }}>
                 登录

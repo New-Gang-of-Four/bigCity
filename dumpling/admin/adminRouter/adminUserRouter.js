@@ -29,9 +29,9 @@ router.post('/login', (req, res) => {
     console.log(11111,code)
     console.log(2222,codes)
     console.log(333,codes[mail])
-    console.log(444,mail)
-    // let us = req.query.mail;
-    // let code = req.query.code;
+    // console.log(444,mail)
+    // // let us = req.query.mail;
+    // // let code = req.query.code;
     let rootList = []
     let token = null
     let _id = ''
@@ -43,16 +43,16 @@ router.post('/login', (req, res) => {
                 rootList = db.rootList
                 _id = db._id
                 token = jwt.createToken({}, 60 * 60)
-                if (codes[mail] != Number(code)) {
-                    console.log(666)
-                    return res.send({ state: 1, info: '登录失败' })
-                } else {
-                    console.log(44555)
+                // if (codes[mail] != Number(code)) {
+                //     console.log(666)
+                //     return res.send({ state: 1, info: '登录失败' })
+                // } else {
+                //     console.log(44555)
                     adminModel.updateMany({ _id }, { token })
                     .then((db) => {
                         return res.send({ err: 0, msg: '登录成功', token, rootList, uid: _id })
                     })
-                }
+                // }
                 
             }
         })

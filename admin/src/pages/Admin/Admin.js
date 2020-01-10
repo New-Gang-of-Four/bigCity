@@ -128,7 +128,7 @@ class Admin extends React.Component {
           okText="确定"
           cancelText="取消"
         >
-          <Button type="primary" style={{ border: 'none', position: 'absolute', left: '1420px', top: '0', fontWeight: 'bolder', fontSize: '12px', background: 'midnightblue', height: '70px', display: 'block', color: '#c9c9c9' }}><Icon type="tool" /> 修改密码</Button>
+          <Button type="primary" style={{ border: 'none', position: 'absolute', left: '1420px', top: '0', fontWeight: 'bolder', fontSize: '12px', background: 'midnightblue', height: '70px', display: 'block', color: '#c9c9c9' }}><Icon type="tool"/>修改密码</Button>
         </Popconfirm>
         <Modal
           visible={visible}
