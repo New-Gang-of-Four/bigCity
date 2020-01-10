@@ -4,7 +4,7 @@ import styles from './admin.module.less'
 import SliderNav from '../../components/SilderNav/silderNav'
 import { withRouter } from 'react-router-dom'
 import { getItem, clear } from '../../Utils/webStorages'
-import { message, Popconfirm, Button, Modal, Input } from 'antd';
+import { message, Popconfirm, Button, Modal, Input ,Carousel } from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ActionCreator from '../../store/actionCreatore'
@@ -81,7 +81,22 @@ class Admin extends React.Component {
             >
               {this.props.children}
             </Content>
-            <Footer>这里是底部</Footer>
+            <Footer style={{ height: '45px' }}>
+              <Carousel autoplay dots="false" style={{width:'1305px',height:'45px',overflow: 'hidden',marginLeft:'-35px',marginTop:'-25px'}}>
+                <div style={{width:'1305px',height:'45px',overflow:'hidden'}}>
+                  <img style={{width:'1305px'}} src={"https://goss.veer.com/creative/vcg/veer/800water/veer-344738821.jpg"}></img>
+                </div>
+                <div style={{width:'1305px',height:'45px',overflow:'hidden'}}>
+                  <img style={{width:'1305px',marginTop:-'100px'}} src={"https://goss.veer.com/creative/vcg/veer/800water/veer-303934034.jpg"}></img>
+                </div>
+                <div style={{width:'1305px',height:'45px',overflow:'hidden'}}>
+                  <img style={{width:'1305px'}} src={"https://goss.veer.com/creative/vcg/veer/800water/veer-344797606.jpg"}></img>
+                </div>
+                <div style={{width:'1305px',height:'45px',overflow:'hidden'}}>
+                  <img style={{width:'1305px'}} src={"https://goss.veer.com/creative/vcg/veer/800water/veer-345559136.jpg"}></img>
+                </div>
+              </Carousel>
+            </Footer>
           </Layout>
         </Layout>
         <Modal title='确认提示' visible={this.props.tokenModal} onOk={() => {
@@ -136,7 +151,7 @@ class Admin extends React.Component {
                   .then((data) => {
                     console.log(data)
                     switch (data.err) {
-                      case 0: message.success('修改成功', 1);this.props.history.push('/login')
+                      case 0: message.success('修改成功', 1); this.props.history.push('/login')
                         break;
                       case -1: message.success('请输入正确的原始密码');
                     }

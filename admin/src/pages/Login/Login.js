@@ -12,27 +12,20 @@ class Login extends Component {
   // login即点击登录按钮后执行的登陆操作，是一个函数
   constructor(){
     super()
-    // this.state={
-    //   userName:'',
-    //   passWord:''
-    // }
   }
   componentDidMount(){
     let check = cookie.load('userId')
     console.log(check)
     if(check){
       console.log('cunzai ')
-      // this.setState({userName:check.userName})
-      // this.setState({passWord:check.passWord})
       let { validateFields } = this.props.form
       validateFields((err,data)=>{
         console.log(data)
         if (err) {return message.error('请重试', 1)}
         else{
-          // data.userName=check.userName
-          // data.passWord=check.passWord
           this.props.form.setFieldsValue({userName:check.userName});
           this.props.form.setFieldsValue({passWord:check.passWord});
+          this.props.form.setFieldsValue({mail:check.mail});
         }
       })
     }
@@ -66,8 +59,6 @@ class Login extends Component {
           console.log(err)
         })
     })
-    // let result =getFieldsValue()
-    // console.log(result)
   }
   getCode = () => {
     let { validateFields } = this.props.form
@@ -90,7 +81,7 @@ class Login extends Component {
     validateFields((err,data)=>{
       if (err) {return message.error('请重试', 1)}
       else{
-        let {userName,passWord} = data
+        let {userName,passWord,mail} = data
         if(remember){
           // const expires = (new Date()).getTime()+1000*60*60
           const expires = new Date()
@@ -100,7 +91,7 @@ class Login extends Component {
           console.log(expires)
           cookie.save(
             'userId', 
-            {userName,passWord},
+            {userName,passWord,mail},
              {
               path: '/',
               expires:expires
